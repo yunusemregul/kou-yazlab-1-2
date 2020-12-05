@@ -6,29 +6,30 @@ public class Giris extends Thread
 
 	public void musteriGiris() throws InterruptedException
 	{
-		while (true)
+		int girecekKisiSayisi = random.nextInt(10)+1;
+		int hedefKat = random.nextInt(4)+1;
+
+		for (int i = 0; i < girecekKisiSayisi; i++)
 		{
-			int girecekKisiSayisi = random.nextInt(10)+1;
-			int hedefKat = random.nextInt(4)+1;
-			synchronized (AVM.katlar){
-				for (int i = 0; i < girecekKisiSayisi; i++)
-				{
-					AVM.katlar[0].musterilereEkle(new Musteri(hedefKat));
-				}
-			}
-			sleep(500);
+			AVM.katlar[0].musterilereEkle(new Musteri(hedefKat));
 		}
+
+		sleep(500);
 	}
+
 	@Override
 	public void run()
 	{
-		try
+		while (true)
 		{
-			musteriGiris();
-		}
-		catch (InterruptedException e)
-		{
-			e.printStackTrace();
+			try
+			{
+				musteriGiris();
+			}
+			catch (InterruptedException e)
+			{
+				e.printStackTrace();
+			}
 		}
 	}
 }

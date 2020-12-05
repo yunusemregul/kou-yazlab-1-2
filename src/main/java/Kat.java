@@ -9,7 +9,7 @@ public class Kat
 		this.musteriler = new ArrayList<Musteri>();
 	}
 
-	public void musterilereEkle(Musteri musteri)
+	public synchronized void musterilereEkle(Musteri musteri)
 	{
 		musteriler.add(musteri);
 	}
