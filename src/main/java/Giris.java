@@ -9,18 +9,16 @@ public class Giris extends Thread
 		while (true)
 		{
 			int girecekKisiSayisi = random.nextInt(10)+1;
-
-			Musteri[] girecekMusteriler = new Musteri[girecekKisiSayisi];
-
-			for (int i = 0; i < girecekKisiSayisi; i++)
-			{
-				girecekMusteriler[i] = new Musteri(random.nextInt(4)+1);
+			int hedefKat = random.nextInt(4)+1;
+			synchronized (AVM.katlar){
+				for (int i = 0; i < girecekKisiSayisi; i++)
+				{
+					AVM.katlar[0].musterilereEkle(new Musteri(hedefKat));
+				}
 			}
-
 			sleep(500);
 		}
 	}
-
 	@Override
 	public void run()
 	{

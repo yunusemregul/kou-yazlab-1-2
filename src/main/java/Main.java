@@ -16,7 +16,6 @@ public class Main
 	{
 		Giris girisThread = new Giris();
 		girisThread.run();
-
-
+		AVM avm = new AVM();
 	}
 }
