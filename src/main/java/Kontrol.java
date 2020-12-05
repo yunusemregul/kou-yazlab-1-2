@@ -1,6 +1,6 @@
 public class Kontrol extends Thread
 {
-	public void kontrolEt()
+	synchronized public void kontrolEt()
 	{
 		int bekleyenKisiSayisi = 0;
 
@@ -26,7 +26,7 @@ public class Kontrol extends Thread
 
 		for (Asansor asansor:AVM.asansorler)
 		{
-			if (asansor.isAlive())
+			if (asansor.calisiyor)
 			{
 				aktifAsansorSayisi += 1;
 			}
@@ -39,7 +39,7 @@ public class Kontrol extends Thread
 			{
 				if (!asansor.calisiyor)
 				{
-					asansor.start();
+					asansor.run();
 				}
 				break;
 			}

@@ -13,4 +13,9 @@ public class Kat
 	{
 		musteriler.add(musteri);
 	}
+
+	public synchronized void musteriCikar(Musteri musteri)
+	{
+		musteriler.remove(musteri);
+	}
 }
