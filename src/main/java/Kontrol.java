@@ -44,7 +44,7 @@ public class Kontrol extends Thread
 				break;
 			}
 		}
-		else if(bekleyenKisiSayisi < aktifAsansorSayisi * 10 * 2) // gereksiz asansör varsa
+		else if(bekleyenKisiSayisi <= (aktifAsansorSayisi - 1) * 10 * 2) // gereksiz asansör varsa
 		{
 			for (Asansor asansor:AVM.asansorler)
 			{
