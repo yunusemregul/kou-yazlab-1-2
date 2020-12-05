@@ -13,7 +13,6 @@ public class Giris extends Thread
 		{
 			AVM.katlar[0].musterilereEkle(new Musteri(hedefKat));
 		}
-
 		sleep(500);
 	}
 
