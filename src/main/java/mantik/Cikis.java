@@ -5,6 +5,7 @@ import java.util.Random;
 public class Cikis extends Thread
 {
 	private Random random = new Random();
+	private Musteri temp;
 
 	public void musteriCikis() throws InterruptedException
 	{
@@ -15,7 +16,10 @@ public class Cikis extends Thread
 		{
 			synchronized (AVM.katlar)
 			{
-				AVM.katlar[hangiKattan].getMusteriler().get(0).cikart();
+				temp = AVM.katlar[hangiKattan].getMusteriler().get(0);
+				temp.hedefKat =0;
+				AVM.katlar[hangiKattan].getMusteriler().remove(0);
+				AVM.katlar[hangiKattan].cikacaklaraEkle(temp);
 				cikacakKisiSayisi--;
 			}
 		}

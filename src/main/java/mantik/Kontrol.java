@@ -8,7 +8,6 @@ public class Kontrol extends Thread
 
 		synchronized (AVM.katlar)
 		{
-
 			for (int i = 0; i < 5; i++)
 			{
 				if (i == 0) // zemin
@@ -17,12 +16,9 @@ public class Kontrol extends Thread
 				}
 				else
 				{
-					for (Musteri musteri : AVM.katlar[i].getMusteriler())
+					for (Musteri musteri : AVM.katlar[i].getCikacaklar())
 					{
-						if (musteri.cikiyormu)
-						{
 							bekleyenKisiSayisi += 1;
-						}
 					}
 				}
 			}
