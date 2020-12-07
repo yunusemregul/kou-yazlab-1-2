@@ -16,10 +16,7 @@ public class Kontrol extends Thread
 				}
 				else
 				{
-					for (Musteri musteri : AVM.katlar[i].getCikacaklar())
-					{
-							bekleyenKisiSayisi += 1;
-					}
+					bekleyenKisiSayisi += AVM.katlar[i].getCikacaklar().size();
 				}
 			}
 		}
@@ -37,17 +34,8 @@ public class Kontrol extends Thread
 			}
 
 			// asansör gerekiyorsa
-			if (bekleyenKisiSayisi > 20) // aktifAsansorSayisi * 10 * 2
+			if (bekleyenKisiSayisi > aktifAsansorSayisi * 10 * 2) // aktifAsansorSayisi * 10 * 2
 			{
-				/*for (Asansor asansor : AVM.asansorler)
-				{
-					if (!asansor.isAlive() && !asansor.calisiyor)
-					{
-						asansor.start();
-						break;
-					}
-				}*/
-
 				for (int i = 0; i < AVM.asansorler.length; i++)
 				{
 					Asansor asansor = AVM.asansorler[i];
@@ -59,7 +47,7 @@ public class Kontrol extends Thread
 					}
 				}
 			}
-			else if(aktifAsansorSayisi>1) // if(bekleyenKisiSayisi <= 20) // gereksiz asansör varsa (aktifAsansorSayisi - 1) * 10 * 2
+			else if (bekleyenKisiSayisi < (aktifAsansorSayisi - 1) * 10 * 2) // if(bekleyenKisiSayisi <= 20) // gereksiz asansör varsa (aktifAsansorSayisi - 1) * 10 * 2
 			{
 				for (Asansor asansor : AVM.asansorler)
 				{

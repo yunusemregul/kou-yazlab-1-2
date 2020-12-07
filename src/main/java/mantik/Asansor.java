@@ -45,52 +45,40 @@ public class Asansor extends Thread
 	{
 		synchronized (AVM.katlar)
 		{
-			ArrayList<Musteri> cikartilacaklar = new ArrayList<>();
+			ArrayList<Musteri> kataBirakilacaklar = new ArrayList<>();
 			// asansörde olan müşterileri bu katta ineceklerse bırakıyor
 			for (Musteri musteri : getMusteriler())
 			{
+				if (musteri.hedefKat == 0 && olduguKat == 0)
+				{
+					kataBirakilacaklar.add(musteri);
+					continue;
+				}
+
 				if (musteri.hedefKat == olduguKat)
 				{
 					AVM.katlar[olduguKat].musterilereEkle(musteri);
-					cikartilacaklar.add(musteri);
+					kataBirakilacaklar.add(musteri);
 				}
 			}
 
-			for (Musteri musteri:cikartilacaklar)
+			for (Musteri musteri : kataBirakilacaklar)
 			{
 				musteriler.remove(musteri);
 			}
 
-			if (hedefKat != 4 || olduguKat == 0)
+			if (olduguKat == 0)
 			{
-				// olduğu kattaki müşterileri asansöre alıyor
-				while (getMusteriler().size() < 10 && (AVM.katlar[olduguKat].musteriler.stream().anyMatch(musteri -> musteri.cikiyormu) || (olduguKat==0 && AVM.katlar[0].getMusteriler().size()>0)))
+				while (getMusteriler().size() < 10 && AVM.katlar[olduguKat].getMusteriler().size() > 0)
 				{
-					cikartilacaklar = new ArrayList<>();
-
-					for (Musteri musteri : AVM.katlar[olduguKat].musteriler)
-					{
-						if (olduguKat == 0)
-						{
-							getMusteriler().add(musteri);
-							cikartilacaklar.add(musteri);
-							break;
-						}
-						else
-						{
-							if (musteri.cikiyormu)
-							{
-								getMusteriler().add(musteri);
-								cikartilacaklar.add(musteri);
-								break;
-							}
-						}
-					}
-
-					for (Musteri musteri:cikartilacaklar)
-					{
-						AVM.katlar[olduguKat].musteriler.remove(musteri);
-					}
+					getMusteriler().add(AVM.katlar[olduguKat].getMusteriler().pop());
+				}
+			}
+			else
+			{
+				while (getMusteriler().size() < 10 && AVM.katlar[olduguKat].getCikacaklar().size() > 0)
+				{
+					getMusteriler().add(AVM.katlar[olduguKat].getCikacaklar().pop());
 				}
 			}
 		}

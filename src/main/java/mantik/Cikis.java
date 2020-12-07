@@ -5,20 +5,19 @@ import java.util.Random;
 public class Cikis extends Thread
 {
 	private Random random = new Random();
-	private Musteri temp;
+
 
 	public void musteriCikis() throws InterruptedException
 	{
 		int cikacakKisiSayisi = random.nextInt(5) + 1;
 		int hangiKattan = random.nextInt(4) + 1;
 
-		while (AVM.katlar[hangiKattan].musteriler.size()>0 && cikacakKisiSayisi > 0)
+		synchronized (AVM.katlar)
 		{
-			synchronized (AVM.katlar)
+			while (AVM.katlar[hangiKattan].getMusteriler().size() > 0 && cikacakKisiSayisi > 0)
 			{
-				temp = AVM.katlar[hangiKattan].getMusteriler().get(0);
-				temp.hedefKat =0;
-				AVM.katlar[hangiKattan].getMusteriler().remove(0);
+				Musteri temp = AVM.katlar[hangiKattan].getMusteriler().pop();
+				temp.hedefKat = 0;
 				AVM.katlar[hangiKattan].cikacaklaraEkle(temp);
 				cikacakKisiSayisi--;
 			}

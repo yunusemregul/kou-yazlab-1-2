@@ -88,7 +88,7 @@ public class Arayuz
 
 		for (int i = 0; i < AVM.katlar.length; i++)
 		{
-			g.drawString(String.format("AVM %d kattaki kişi sayısı: %d, çıkacak kişi sayısı: %d", i, AVM.katlar[i].getMusteriler().size(), AVM.katlar[i].getMusteriler().stream().filter(musteri -> musteri.cikiyormu).count()), 5, asansorUzunluk + 25 + 20*i);
+			g.drawString(String.format("AVM %d kattaki kişi sayısı: %d, çıkacak kişi sayısı: %d", i, AVM.katlar[i].getMusteriler().size(), AVM.katlar[i].getCikacaklar().size()), 5, asansorUzunluk + 25 + 20*i);
 		}
 	}
 }

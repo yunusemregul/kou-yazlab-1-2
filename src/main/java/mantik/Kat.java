@@ -1,27 +1,30 @@
 package mantik;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class Kat
 {
-	public ArrayList<Musteri> musteriler;
-	public ArrayList<Musteri> cikacaklar;
+	private LinkedList<Musteri> musteriler;
+	private LinkedList<Musteri> cikacaklar;
 	public int kat;
 
 	Kat(int kat)
 	{
-		this.musteriler = new ArrayList<Musteri>();
+		this.musteriler = new LinkedList<>();
+		this.cikacaklar = new LinkedList<>();
 		this.kat = kat;
 	}
 
-	public ArrayList<Musteri> getMusteriler()
+	public LinkedList<Musteri> getMusteriler()
 	{
 		synchronized (musteriler)
 		{
 			return musteriler;
 		}
 	}
-	public ArrayList<Musteri> getCikacaklar()
+
+	public LinkedList<Musteri> getCikacaklar()
 	{
 		synchronized (cikacaklar)
 		{
@@ -29,13 +32,13 @@ public class Kat
 		}
 	}
 
-	public void cikacaklaraEkle(Musteri musteri) {
-		getCikacaklar().add(musteri);
+	public void cikacaklaraEkle(Musteri musteri)
+	{
+		getCikacaklar().push(musteri);
 	}
 
 	public void musterilereEkle(Musteri musteri)
 	{
-		getMusteriler().add(musteri);
+		getMusteriler().push(musteri);
 	}
-
 }
