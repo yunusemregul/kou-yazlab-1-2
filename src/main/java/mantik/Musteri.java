@@ -1,3 +1,5 @@
+package mantik;
+
 public class Musteri
 {
 	public int hedefKat;

@@ -1,3 +1,5 @@
+package mantik;
+
 import java.util.Random;
 
 public class Cikis extends Thread
@@ -9,11 +11,14 @@ public class Cikis extends Thread
 		int cikacakKisiSayisi = random.nextInt(5) + 1;
 		int hangiKattan = random.nextInt(4) + 1;
 
-		for (int i = 0; i < cikacakKisiSayisi; i++)
+		while (AVM.katlar[hangiKattan].musteriler.stream().anyMatch(musteri -> musteri.cikiyormu) && cikacakKisiSayisi > 0)
 		{
-			AVM.katlar[hangiKattan].musteriler.get(i).cikart();
+			synchronized (AVM.katlar)
+			{
+				AVM.katlar[hangiKattan].musteriler.get(0).cikart();
+				cikacakKisiSayisi--;
+			}
 		}
-
 		sleep(1000);
 	}
 
