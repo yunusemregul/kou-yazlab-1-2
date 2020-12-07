@@ -8,4 +8,10 @@ public class Musteri
 		this.hedefKat = hedefKat;
 		this.cikiyormu = false;
 	}
+
+	public void cikart()
+	{
+		cikiyormu = true;
+		hedefKat = 0;
+	}
 }

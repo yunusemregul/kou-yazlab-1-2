@@ -9,7 +9,7 @@ public class AVM
 		asansorler = new Asansor[5];
 		for (int i = 0; i < 5; i++)
 		{
-			this.katlar[i] = new Kat();
+			this.katlar[i] = new Kat(i);
 		}
 		for (int i = 0; i < 5; i++)
 		{
