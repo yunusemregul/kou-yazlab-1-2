@@ -6,19 +6,23 @@ public class Kontrol extends Thread
 	{
 		int bekleyenKisiSayisi = 0;
 
-		for (int i = 0; i < 5; i++)
+		synchronized (AVM.katlar)
 		{
-			if (i == 0) // zemin
+
+			for (int i = 0; i < 5; i++)
 			{
-				bekleyenKisiSayisi += AVM.katlar[0].getMusteriler().size();
-			}
-			else
-			{
-				for (Musteri musteri : AVM.katlar[i].getMusteriler())
+				if (i == 0) // zemin
 				{
-					if (musteri.cikiyormu)
+					bekleyenKisiSayisi += AVM.katlar[0].getMusteriler().size();
+				}
+				else
+				{
+					for (Musteri musteri : AVM.katlar[i].getMusteriler())
 					{
-						bekleyenKisiSayisi += 1;
+						if (musteri.cikiyormu)
+						{
+							bekleyenKisiSayisi += 1;
+						}
 					}
 				}
 			}
@@ -39,25 +43,36 @@ public class Kontrol extends Thread
 			// asansör gerekiyorsa
 			if (bekleyenKisiSayisi > 20) // aktifAsansorSayisi * 10 * 2
 			{
-				for (Asansor asansor : AVM.asansorler)
+				/*for (Asansor asansor : AVM.asansorler)
 				{
-					if (!asansor.isAlive())
+					if (!asansor.isAlive() && !asansor.calisiyor)
 					{
 						asansor.start();
+						break;
 					}
-					break;
+				}*/
+
+				for (int i = 0; i < AVM.asansorler.length; i++)
+				{
+					Asansor asansor = AVM.asansorler[i];
+					if (!asansor.isAlive() && !asansor.calisiyor)
+					{
+						AVM.asansorler[i] = new Asansor();
+						AVM.asansorler[i].start();
+						break;
+					}
 				}
 			}
 			else if(aktifAsansorSayisi>1) // if(bekleyenKisiSayisi <= 20) // gereksiz asansör varsa (aktifAsansorSayisi - 1) * 10 * 2
 			{
 				for (Asansor asansor : AVM.asansorler)
 				{
-					if (asansor.calisiyor)
+					if (asansor.isAlive() && asansor.calisiyor)
 					{
 						// TODO: durmadan önce içindekileri indir istedikleri kata
 						asansor.durdur();
+						break;
 					}
-					break;
 				}
 			}
 		}

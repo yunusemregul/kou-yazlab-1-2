@@ -68,9 +68,17 @@ public class Arayuz
 			asansorX = i * (asansorGenislik + 5);
 			asansorY = 0;
 
-			g.setColor(Color.WHITE);
+			if (AVM.asansorler[i].calisiyor)
+			{
+				g.setColor(Color.GREEN);
+			}
+			else
+			{
+				g.setColor(Color.red);
+			}
 			g.drawRect(asansorX, asansorY, asansorGenislik,asansorUzunluk);
 
+			g.setColor(Color.WHITE);
 			g.drawString(String.format("Calisiyor: %s", AVM.asansorler[i].calisiyor ? "evet" : "hayir"), asansorX, asansorY + 20);
 			g.drawString(String.format("Oldugu kat: %d", AVM.asansorler[i].olduguKat), asansorX, asansorY + 40);
 			g.drawString(String.format("Hedef kat: %d", AVM.asansorler[i].hedefKat), asansorX, asansorY + 60);
@@ -80,7 +88,7 @@ public class Arayuz
 
 		for (int i = 0; i < AVM.katlar.length; i++)
 		{
-			g.drawString(String.format("AVM %d kattaki kişi sayısı: %d", i, AVM.katlar[i].getMusteriler().size()), 5, asansorUzunluk + 25 + 20*i);
+			g.drawString(String.format("AVM %d kattaki kişi sayısı: %d, çıkacak kişi sayısı: %d", i, AVM.katlar[i].getMusteriler().size(), AVM.katlar[i].getMusteriler().stream().filter(musteri -> musteri.cikiyormu).count()), 5, asansorUzunluk + 25 + 20*i);
 		}
 	}
 }

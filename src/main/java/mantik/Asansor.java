@@ -64,7 +64,7 @@ public class Asansor extends Thread
 			if (hedefKat != 4 || olduguKat == 0)
 			{
 				// olduğu kattaki müşterileri asansöre alıyor
-				while (getMusteriler().size() < 10 && (AVM.katlar[olduguKat].musteriler.stream().anyMatch(musteri -> musteri.cikiyormu) || olduguKat==0))
+				while (getMusteriler().size() < 10 && (AVM.katlar[olduguKat].musteriler.stream().anyMatch(musteri -> musteri.cikiyormu) || (olduguKat==0 && AVM.katlar[0].getMusteriler().size()>0)))
 				{
 					cikartilacaklar = new ArrayList<>();
 

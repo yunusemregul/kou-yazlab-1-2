@@ -11,11 +11,11 @@ public class Cikis extends Thread
 		int cikacakKisiSayisi = random.nextInt(5) + 1;
 		int hangiKattan = random.nextInt(4) + 1;
 
-		while (AVM.katlar[hangiKattan].musteriler.stream().anyMatch(musteri -> musteri.cikiyormu) && cikacakKisiSayisi > 0)
+		while (AVM.katlar[hangiKattan].musteriler.size()>0 && cikacakKisiSayisi > 0)
 		{
 			synchronized (AVM.katlar)
 			{
-				AVM.katlar[hangiKattan].musteriler.get(0).cikart();
+				AVM.katlar[hangiKattan].getMusteriler().get(0).cikart();
 				cikacakKisiSayisi--;
 			}
 		}
