@@ -19,5 +19,6 @@ public class Main
 
 		new Arayuz();
 
+		AVM.asansorler[0].start();
 	}
 }

@@ -28,14 +28,14 @@ public class Kontrol extends Thread
 			// asansör gerekiyorsa
 			if (bekleyenKisiSayisi > 20) // aktifAsansorSayisi * 10 * 2
 			{
-				for (int i = 0; i < AVM.asansorler.length; i++)
+				for (int i = 1; i < AVM.asansorler.length; i++)
 				{
 					Asansor asansor = AVM.asansorler[i];
 					if (!asansor.isAlive() && !asansor.calisiyor)
 					{
 						AVM.asansorler[i] = new Asansor();
 						AVM.asansorler[i].start();
-						sleep(1000);
+						sleep(2000);
 						break;
 					}
 				}
@@ -44,10 +44,11 @@ public class Kontrol extends Thread
 			{
 				for (Asansor asansor : AVM.asansorler)
 				{
-					if (asansor.isAlive() && asansor.calisiyor)
+					if (asansor.isAlive() && asansor.calisiyor && asansor != AVM.asansorler[0])
 					{
 						// TODO: durmadan önce içindekileri indir istedikleri kata
-							asansor.durdur();
+								asansor.durdur();
+							sleep(1000);
 						break;
 					}
 				}
