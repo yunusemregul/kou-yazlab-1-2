@@ -15,7 +15,8 @@ public class Giris extends Thread
 		{
 			for (int i = 0; i < girecekKisiSayisi; i++)
 			{
-				AVM.katlar[0].musterilereEkle(new Musteri(hedefKat));
+				Musteri musteri = new Musteri(hedefKat);
+				AVM.katlar[0].cikacaklaraEkle(musteri);
 			}
 		}
 		sleep(500);

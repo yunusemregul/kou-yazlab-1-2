@@ -2,22 +2,14 @@ package mantik;
 
 public class Kontrol extends Thread
 {
-	public void kontrolEt()
-	{
+	public void kontrolEt() throws InterruptedException {
 		int bekleyenKisiSayisi = 0;
 
 		synchronized (AVM.katlar)
 		{
 			for (int i = 0; i < 5; i++)
 			{
-				if (i == 0) // zemin
-				{
-					bekleyenKisiSayisi += AVM.katlar[0].getMusteriler().size();
-				}
-				else
-				{
-					bekleyenKisiSayisi += AVM.katlar[i].getCikacaklar().size();
-				}
+				bekleyenKisiSayisi += AVM.katlar[i].getCikacaklar().size();
 			}
 		}
 
@@ -34,7 +26,7 @@ public class Kontrol extends Thread
 			}
 
 			// asansör gerekiyorsa
-			if (bekleyenKisiSayisi > aktifAsansorSayisi * 10 * 2) // aktifAsansorSayisi * 10 * 2
+			if (bekleyenKisiSayisi > 20) // aktifAsansorSayisi * 10 * 2
 			{
 				for (int i = 0; i < AVM.asansorler.length; i++)
 				{
@@ -43,18 +35,19 @@ public class Kontrol extends Thread
 					{
 						AVM.asansorler[i] = new Asansor();
 						AVM.asansorler[i].start();
+						sleep(1000);
 						break;
 					}
 				}
 			}
-			else if (bekleyenKisiSayisi < (aktifAsansorSayisi - 1) * 10 * 2) // if(bekleyenKisiSayisi <= 20) // gereksiz asansör varsa (aktifAsansorSayisi - 1) * 10 * 2
+			else if (bekleyenKisiSayisi < 10) // if(bekleyenKisiSayisi <= 20) // gereksiz asansör varsa (aktifAsansorSayisi - 1) * 10 * 2
 			{
 				for (Asansor asansor : AVM.asansorler)
 				{
 					if (asansor.isAlive() && asansor.calisiyor)
 					{
 						// TODO: durmadan önce içindekileri indir istedikleri kata
-						asansor.durdur();
+							asansor.durdur();
 						break;
 					}
 				}
@@ -67,7 +60,11 @@ public class Kontrol extends Thread
 	{
 		while (true)
 		{
-			kontrolEt();
+			try {
+				kontrolEt();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }

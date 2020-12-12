@@ -46,6 +46,13 @@ public class Asansor extends Thread
 		synchronized (AVM.katlar)
 		{
 			ArrayList<Musteri> kataBirakilacaklar = new ArrayList<>();
+
+			//asamsöre yolcu alınıyor
+			while (getMusteriler().size() < 10 && AVM.katlar[olduguKat].getCikacaklar().size() > 0)
+			{
+				getMusteriler().add(AVM.katlar[olduguKat].getCikacaklar().pop());
+			}
+
 			// asansörde olan müşterileri bu katta ineceklerse bırakıyor
 			for (Musteri musteri : getMusteriler())
 			{
@@ -67,20 +74,6 @@ public class Asansor extends Thread
 				musteriler.remove(musteri);
 			}
 
-			if (olduguKat == 0)
-			{
-				while (getMusteriler().size() < 10 && AVM.katlar[olduguKat].getMusteriler().size() > 0)
-				{
-					getMusteriler().add(AVM.katlar[olduguKat].getMusteriler().pop());
-				}
-			}
-			else
-			{
-				while (getMusteriler().size() < 10 && AVM.katlar[olduguKat].getCikacaklar().size() > 0)
-				{
-					getMusteriler().add(AVM.katlar[olduguKat].getCikacaklar().pop());
-				}
-			}
 		}
 	}
 

@@ -85,10 +85,12 @@ public class Arayuz
 			g.drawString(String.format("Yon: %s", AVM.asansorler[i].hedefKat == 4 ? "yukari" : "asagi"), asansorX, asansorY + 80);
 			g.drawString(String.format("Icindeki kisi sayisi: %d", AVM.asansorler[i].getMusteriler().size()), asansorX, asansorY + 100);
 		}
-
+		int toplamBekleyen=0;
 		for (int i = 0; i < AVM.katlar.length; i++)
 		{
-			g.drawString(String.format("AVM %d kattaki kişi sayısı: %d, çıkacak kişi sayısı: %d", i, AVM.katlar[i].getMusteriler().size(), AVM.katlar[i].getCikacaklar().size()), 5, asansorUzunluk + 25 + 20*i);
+			g.drawString(String.format("AVM %d kattaki kişi sayısı: %d, çıkacak kişi sayısı: %d", i, AVM.katlar[i].getMusteriler().size()+AVM.katlar[i].getCikacaklar().size(),AVM.katlar[i].getCikacaklar().size()), 5, asansorUzunluk + 25 + 20*i);
+			toplamBekleyen += AVM.katlar[i].getCikacaklar().size();
 		}
+		g.drawString(String.format("Toplam bekleyen sayisi: %d", toplamBekleyen),5, asansorUzunluk + 25 + 20*5);
 	}
 }

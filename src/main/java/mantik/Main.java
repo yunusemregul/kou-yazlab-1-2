@@ -18,5 +18,6 @@ public class Main
 		kontrolThread.start();
 
 		new Arayuz();
+
 	}
 }
