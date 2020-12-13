@@ -35,6 +35,7 @@ public class Kontrol extends Thread
 					if (!asansor.isAlive() && !asansor.calisiyor)
 					{
 						AVM.asansorler[i] = new Asansor();
+						AVM.asansorler[i].duruyorMu = false;
 						AVM.asansorler[i].start();
 						sleep(2000);
 						break;
