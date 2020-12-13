@@ -5,6 +5,7 @@ public class Kontrol extends Thread
 	public void kontrolEt() throws InterruptedException
 	{
 		int bekleyenKisiSayisi = 0;
+		int sonKatlar[] = new int[AVM.asansorler.length];
 
 		synchronized (AVM.katlar)
 		{
@@ -27,7 +28,7 @@ public class Kontrol extends Thread
 			}
 
 			// asansör gerekiyorsa
-			if (bekleyenKisiSayisi > 20) // aktifAsansorSayisi * 10 * 2
+			if (bekleyenKisiSayisi > 20)
 			{
 				for (int i = 1; i < AVM.asansorler.length; i++)
 				{
@@ -35,20 +36,22 @@ public class Kontrol extends Thread
 					if (!asansor.isAlive() && !asansor.calisiyor)
 					{
 						AVM.asansorler[i] = new Asansor();
-						AVM.asansorler[i].duruyorMu = false;
+						AVM.asansorler[i].olduguKat = sonKatlar[i];
 						AVM.asansorler[i].start();
-						sleep(2000);
+						sleep(1000);
 						break;
 					}
 				}
 			}
-			else if (bekleyenKisiSayisi < 10) // if(bekleyenKisiSayisi <= 20) // gereksiz asansör varsa (aktifAsansorSayisi - 1) * 10 * 2
+			else if (bekleyenKisiSayisi < 10) // gereksiz asansör varsa
 			{
-				for (Asansor asansor : AVM.asansorler)
+				Asansor[] asansorler = AVM.asansorler;
+				for (int i = 0; i < asansorler.length; i++)
 				{
+					Asansor asansor = asansorler[i];
 					if (asansor.isAlive() && asansor.calisiyor && asansor != AVM.asansorler[0])
 					{
-						// TODO: durmadan önce içindekileri indir istedikleri kata
+						sonKatlar[i] = asansor.olduguKat;
 						asansor.durdur();
 						sleep(1000);
 						break;

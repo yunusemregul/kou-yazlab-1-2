@@ -10,9 +10,11 @@ public class Asansor extends Thread
 	public volatile boolean calisiyor;
 	public int hedefKat;
 	public boolean duruyorMu;
+
 	Asansor()
 	{
 		musteriler = new ArrayList<>();
+		duruyorMu = false;
 		olduguKat = 0;
 	}
 
@@ -33,7 +35,7 @@ public class Asansor extends Thread
 		duruyorMu = true;
 		while (true)
 		{
-			if (this.getMusteriler().size() <1)
+			if (this.getMusteriler().size() < 1)
 			{
 				break;
 			}
@@ -55,8 +57,8 @@ public class Asansor extends Thread
 		{
 			ArrayList<Musteri> kataBirakilacaklar = new ArrayList<>();
 
-			//asamsöre yolcu alınıyor
-			if (this.duruyorMu == false)
+			// asansöre yolcu alınıyor
+			if (!this.duruyorMu)
 			{
 				while (getMusteriler().size() < 10 && AVM.katlar[olduguKat].getCikacaklar().size() > 0)
 				{

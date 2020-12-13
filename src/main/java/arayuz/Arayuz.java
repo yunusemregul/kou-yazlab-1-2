@@ -9,8 +9,8 @@ import java.awt.event.ActionListener;
 
 public class Arayuz
 {
-	private final int width = 1366;
-	private final int height = 768;
+	private final int width = 688;
+	private final int height = 377;
 
 	private final JPanel panel;
 
@@ -57,7 +57,7 @@ public class Arayuz
 	}
 
 	private final int asansorGenislik = 130;
-	private final int asansorUzunluk = 190;
+	private final int asansorUzunluk = 210;
 
 	private void draw(Graphics2D g)
 	{
@@ -65,8 +65,8 @@ public class Arayuz
 		{
 			int asansorX, asansorY;
 
-			asansorX = i * (asansorGenislik + 5);
-			asansorY = 0;
+			asansorX = i * (asansorGenislik + 5) + 5;
+			asansorY = 5;
 
 			if (AVM.asansorler[i].calisiyor)
 			{
@@ -76,21 +76,30 @@ public class Arayuz
 			{
 				g.setColor(Color.red);
 			}
-			g.drawRect(asansorX, asansorY, asansorGenislik,asansorUzunluk);
+			g.drawRect(asansorX, asansorY, asansorGenislik, asansorUzunluk);
 
+			asansorX += 5;
 			g.setColor(Color.WHITE);
 			g.drawString(String.format("Calisiyor: %s", AVM.asansorler[i].calisiyor ? "evet" : "hayir"), asansorX, asansorY + 20);
 			g.drawString(String.format("Oldugu kat: %d", AVM.asansorler[i].olduguKat), asansorX, asansorY + 40);
 			g.drawString(String.format("Hedef kat: %d", AVM.asansorler[i].hedefKat), asansorX, asansorY + 60);
 			g.drawString(String.format("Yon: %s", AVM.asansorler[i].hedefKat == 4 ? "yukari" : "asagi"), asansorX, asansorY + 80);
 			g.drawString(String.format("Icindeki kisi sayisi: %d", AVM.asansorler[i].getMusteriler().size()), asansorX, asansorY + 100);
+			for (int j = 0; j < AVM.katlar.length; j++)
+			{
+				int finalJ = j;
+				g.drawString(String.format("%d. kat isteyen: %d", j, AVM.asansorler[i].getMusteriler().stream().filter(musteri -> musteri.hedefKat == finalJ).count()), asansorX,
+						asansorY + 120 + 20 * j);
+			}
 		}
-		int toplamBekleyen=0;
+
+		int toplamBekleyen = 0;
 		for (int i = 0; i < AVM.katlar.length; i++)
 		{
-			g.drawString(String.format("AVM %d kattaki kişi sayısı: %d, çıkacak kişi sayısı: %d", i, AVM.katlar[i].getMusteriler().size()+AVM.katlar[i].getCikacaklar().size(),AVM.katlar[i].getCikacaklar().size()), 5, asansorUzunluk + 25 + 20*i);
+			g.drawString(String.format("AVM %d kattaki kişi sayısı: %d, bekleyen kişi sayısı: %d", i, AVM.katlar[i].getMusteriler().size() + AVM.katlar[i].getCikacaklar().size(),
+					AVM.katlar[i].getCikacaklar().size()), 5, asansorUzunluk + 25 + 20 * i);
 			toplamBekleyen += AVM.katlar[i].getCikacaklar().size();
 		}
-		g.drawString(String.format("Toplam bekleyen sayisi: %d", toplamBekleyen),5, asansorUzunluk + 25 + 20*5);
+		g.drawString(String.format("Toplam bekleyen sayisi: %d", toplamBekleyen), 5, asansorUzunluk + 25 + 20 * 5);
 	}
 }
