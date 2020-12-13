@@ -8,8 +8,8 @@ public class Giris extends Thread
 
 	public void musteriGiris() throws InterruptedException
 	{
-		int girecekKisiSayisi = random.nextInt(10)+1;
-		int hedefKat = random.nextInt(4)+1;
+		int girecekKisiSayisi = random.nextInt(10) + 1;
+		int hedefKat = random.nextInt(4) + 1;
 
 		synchronized (AVM.katlar)
 		{

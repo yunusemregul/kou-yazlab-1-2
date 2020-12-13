@@ -2,7 +2,8 @@ package mantik;
 
 public class Kontrol extends Thread
 {
-	public void kontrolEt() throws InterruptedException {
+	public void kontrolEt() throws InterruptedException
+	{
 		int bekleyenKisiSayisi = 0;
 
 		synchronized (AVM.katlar)
@@ -47,8 +48,8 @@ public class Kontrol extends Thread
 					if (asansor.isAlive() && asansor.calisiyor && asansor != AVM.asansorler[0])
 					{
 						// TODO: durmadan önce içindekileri indir istedikleri kata
-								asansor.durdur();
-							sleep(1000);
+						asansor.durdur();
+						sleep(1000);
 						break;
 					}
 				}
@@ -61,9 +62,12 @@ public class Kontrol extends Thread
 	{
 		while (true)
 		{
-			try {
+			try
+			{
 				kontrolEt();
-			} catch (InterruptedException e) {
+			}
+			catch (InterruptedException e)
+			{
 				e.printStackTrace();
 			}
 		}

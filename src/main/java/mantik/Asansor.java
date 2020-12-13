@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 public class Asansor extends Thread
 {
-	private ArrayList<Musteri> musteriler;
+	private final ArrayList<Musteri> musteriler;
 	public int olduguKat;
 	public volatile boolean calisiyor;
 	public int hedefKat;
