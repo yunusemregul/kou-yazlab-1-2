@@ -38,8 +38,8 @@ public class Kontrol extends Thread
 						AVM.asansorler[i] = new Asansor();
 						AVM.asansorler[i].olduguKat = sonKatlar[i];
 						AVM.asansorler[i].start();
-						sleep(1000);
-						break;
+						sleep(2000);
+						return;
 					}
 				}
 			}
@@ -53,8 +53,8 @@ public class Kontrol extends Thread
 					{
 						sonKatlar[i] = asansor.olduguKat;
 						asansor.durdur();
-						sleep(1000);
-						break;
+						sleep(2000);
+						return;
 					}
 				}
 			}

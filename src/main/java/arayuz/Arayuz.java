@@ -6,6 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Arayuz
 {
@@ -96,8 +98,19 @@ public class Arayuz
 		int toplamBekleyen = 0;
 		for (int i = 0; i < AVM.katlar.length; i++)
 		{
-			g.drawString(String.format("AVM %d kattaki kişi sayısı: %d, bekleyen kişi sayısı: %d", i, AVM.katlar[i].getMusteriler().size() + AVM.katlar[i].getCikacaklar().size(),
-					AVM.katlar[i].getCikacaklar().size()), 5, asansorUzunluk + 25 + 20 * i);
+			String bekleyenHedef = "";
+			Map<Integer, Long> collection = AVM.katlar[i].getCikacaklar().stream().collect(Collectors.groupingBy(musteri -> musteri.hedefKat, Collectors.counting()));
+			for (int j = 0; j < 5; j++)
+			{
+				if (collection.get(j)==null)
+				{
+					collection.put(j, 0L);
+				}
+			}
+			bekleyenHedef = collection.entrySet().stream().map(entry -> String.format("[%d, %d]",entry.getValue(),entry.getKey())).collect(Collectors.joining(", "));
+
+			g.drawString(String.format("AVM %d kattaki kişi sayısı: %3d, bekleyen kişi sayısı: %3d -> %s", i, AVM.katlar[i].getMusteriler().size() + AVM.katlar[i].getCikacaklar().size(),
+					AVM.katlar[i].getCikacaklar().size(), bekleyenHedef), 5, asansorUzunluk + 25 + 20 * i);
 			toplamBekleyen += AVM.katlar[i].getCikacaklar().size();
 		}
 		g.drawString(String.format("Toplam bekleyen sayisi: %d", toplamBekleyen), 5, asansorUzunluk + 25 + 20 * 5);
